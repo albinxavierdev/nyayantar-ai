@@ -1,0 +1,30 @@
+services:
+  # Backend API Service
+  - type: web
+    name: nyayantar-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api_server:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: COHERE_API_KEY
+        sync: false
+    healthCheckPath: /docs
+
+  # Frontend Web Service
+  - type: web
+    name: nyayantar-ui
+    env: node
+    plan: free
+    buildCommand: cd nyayantar-ui && npm install && npm run build
+    startCommand: cd nyayantar-ui && npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.0.0
+      - key: NEXT_PUBLIC_API_URL
+        value: https://nyayantar-api.onrender.com
+    healthCheckPath: /

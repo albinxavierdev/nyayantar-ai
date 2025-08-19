@@ -1,0 +1,37 @@
+{
+  "name": "rag-based-legal-assistant",
+  "version": "1.0.0",
+  "description": "A powerful, context-aware legal assistant chatbot built with LangChain and advanced RAG techniques. This application uses Retrieval Augmented Generation (RAG) with multi-query retrieval and reciprocal rank fusion to provide accurate legal information based on your documents while maintaining conversation history.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albinxavierdev/nyayantar-ai.git"
+  },
+  "keywords": ["legal", "ai", "rag", "chatbot", "law"],
+  "author": "Albin Xavier",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/albinxavierdev/nyayantar-ai/issues"
+  },
+  "homepage": "https://github.com/albinxavierdev/nyayantar-ai#readme",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "next": "^14.2.31",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.33.0",
+    "eslint-config-next": "^15.4.6",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5.9.2"
+  }
+}
