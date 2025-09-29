@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    ports:
+      - 6333:6333
+      - 6334:6334
+    networks:
+      - ragsaas-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    networks:
+      - ragsaas-network
+    volumes:
+      - mongodb_data:/data/db
+
+  arizephoenix:
+    image: arizephoenix/phoenix:latest
+    container_name: arizephoenix
+    ports:
+      - '6006:6006'
+      - '4317:4317'
+    networks:
+      - ragsaas-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: ragsaas/backend:latest
+    container_name: backend
+    ports:
+      - '8000:8000'
+    environment:
+      # MongoDB Configuration
+      MONGODB_NAME: RAGSAAS
+      MONGODB_URI: mongodb://admin:password@mongodb:27017/
+      # Qdrant Configuration
+      QDRANT_COLLECTION: default
+      QDRANT_URL: http://qdrant:6333
+      # QDRANT_API_KEY:
+      OPENAI_API_KEY:
+      # Backend Application Configuration
+      MODEL_PROVIDER: openai
+      MODEL: gpt-4o-mini
+      EMBEDDING_MODEL: text-embedding-3-small
+      EMBEDDING_DIM: 1536
+      FILESERVER_URL_PREFIX: http://backend:8000/api/files
+      SYSTEM_PROMPT: 'You are a helpful assistant who helps users with their questions.'
+      APP_HOST: 0.0.0.0
+      APP_PORT: 8000
+      ADMIN_EMAIL: admin@ragsaas.com
+      ADMIN_PASSWORD: ragsaas
+      JWT_SECRET_KEY:
+      JWT_REFRESH_SECRET_KEY:
+      ARIZE_PHOENIX_ENDPOINT: http://arizephoenix:6006
+    depends_on:
+      - qdrant
+      - mongodb
+      - arizephoenix
+    networks:
+      - ragsaas-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: ragsaas/frontend:latest
+    container_name: frontend
+    ports:
+      - '3000:3000'
+    environment:
+      NEXT_PUBLIC_SERVER_URL: http://backend:8000
+      NEXT_PUBLIC_CHAT_API: http://backend:8000/api/chat
+    depends_on:
+      - backend
+    networks:
+      - ragsaas-network
+
+networks:
+  ragsaas-network:
+    name: ragsaas-network
+    driver: bridge
+
+volumes:
+  mongodb_data:

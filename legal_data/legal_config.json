@@ -1,0 +1,21 @@
+{
+  "legal_knowledge_base": {
+    "enabled": true,
+    "data_path": "legal_data/converted",
+    "embeddings_path": "legal_data/embeddings",
+    "storage_path": "legal_data/vector_storage",
+    "include_acts": [
+      "IPC",
+      "CRPC",
+      "CPC",
+      "MVA",
+      "IEA",
+      "IDA",
+      "HMA",
+      "NIA"
+    ],
+    "embedding_model": "simple-text-features",
+    "search_type": "file-based",
+    "total_documents": 1960
+  }
+}
