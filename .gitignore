@@ -1,8 +1,8 @@
-# RAG-SaaS Production .gitignore
-# Optimized for production deployment
+# RAG-SaaS Prediction-Only .gitignore
+# Only files required for prediction/inference
 
 # ===========================================
-# ENVIRONMENT & CONFIGURATION
+# ENVIRONMENT & SECRETS
 # ===========================================
 
 # Environment variables
@@ -14,125 +14,29 @@
 .env.staging
 .env.*.local
 
-# Configuration files with secrets
-config/secrets.yaml
-config/production.yaml
-config/*.secret
-*.secret
+# Secrets and credentials
 *.key
 *.pem
 *.p12
 *.pfx
+secrets/
+keys/
+certificates/
+jwt_secret.txt
+refresh_secret.txt
+db_credentials.txt
+mongodb_uri.txt
 
 # ===========================================
 # PYTHON BACKEND
 # ===========================================
 
-# Byte-compiled / optimized / DLL files
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyInstaller
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-.pybuilder/
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# pipenv
-Pipfile.lock
-
-# poetry
-poetry.lock
-
-# pdm
-.pdm.toml
-
-# PEP 582
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
+# Virtual environments
 .venv
 env/
 venv/
@@ -140,29 +44,10 @@ ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# pytype static type analyzer
-.pytype/
-
-# Cython debug symbols
-cython_debug/
+# Build artifacts
+build/
+dist/
+*.egg-info/
 
 # ===========================================
 # NODE.JS FRONTEND
@@ -170,164 +55,37 @@ cython_debug/
 
 # Dependencies
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-.pnpm-debug.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage/
-*.lcov
-
-# nyc test coverage
-.nyc_output
-
-# Grunt intermediate storage
-.grunt
-
-# Bower dependency directory
-bower_components
-
-# node-waf configuration
-.lock-wscript
-
-# Compiled binary addons
-build/Release
-
-# Dependency directories
-jspm_packages/
-
-# Snowpack dependency directory
-web_modules/
-
-# TypeScript cache
-*.tsbuildinfo
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Optional stylelint cache
-.stylelintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variable files
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
-# parcel-bundler cache
-.cache
-.parcel-cache
 
 # Next.js build output
 .next/
 out/
 
-# Nuxt.js build / generate output
-.nuxt
-dist
-
-# Gatsby files
-.cache/
-public
-
-# Vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless/
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
-
-# TernJS port file
-.tern-port
-
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
-
-# yarn v2
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
-
 # ===========================================
 # DATABASES & STORAGE
 # ===========================================
 
-# MongoDB
+# Database files
 *.db
-*.db-journal
-data/
-mongodb_data/
-
-# SQLite
 *.sqlite
 *.sqlite3
-*.db
-
-# PostgreSQL
-*.pgsql
-*.sql
-
-# Redis
-dump.rdb
+mongodb_data/
+qdrant_data/
 
 # Vector databases
 *.faiss
 *.pkl
 *.index
-vector_storage/
-embeddings/
-qdrant_data/
 
 # ===========================================
 # LEGAL DATA & KNOWLEDGE BASE
 # ===========================================
 
-# Legal data (keep structure, ignore large files)
-legal_data/raw/
-legal_data/processed/
-legal_data/embeddings/
-legal_data/vector_storage/
-legal_data/converted/*.json
-
-# Keep legal config but ignore large data files
+# ALL legal data files (prediction doesn't need training data)
+legal_data/
 !legal_data/legal_config.json
-!legal_data/converted/sample_*.json
 
 # ===========================================
-# LOGS & MONITORING
+# LOGS & TEMPORARY FILES
 # ===========================================
 
 # Log files
@@ -335,69 +93,22 @@ legal_data/converted/*.json
 logs/
 log/
 
-# Monitoring data
-phoenix_data/
-arize_data/
-observability/
+# Temporary files
+tmp/
+temp/
+.tmp/
+.temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
 
-# ===========================================
-# DOCKER & CONTAINERS
-# ===========================================
-
-# Docker
-.dockerignore
-docker-compose.override.yml
-docker-compose.*.yml
-!docker-compose.yml
-
-# Container data
-container_data/
-docker_data/
-
-# ===========================================
-# IDE & EDITORS
-# ===========================================
-
-# VSCode
-.vscode/
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
-
-# Local History for Visual Studio Code
-.history/
-
-# Built Visual Studio Code Extensions
-*.vsix
-
-# JetBrains IDEs
-.idea/
-*.swp
-*.swo
-*~
-
-# Sublime Text
-*.sublime-project
-*.sublime-workspace
-
-# Vim
-*.swp
-*.swo
-*.un~
-Session.vim
-.netrwhist
-
-# Emacs
-*~
-\#*\#
-/.emacs.desktop
-/.emacs.desktop.lock
-*.elc
-auto-save-list
-tramp
-.\#*
+# Cache
+.cache/
+cache/
+*.cache
 
 # ===========================================
 # OPERATING SYSTEM
@@ -409,172 +120,144 @@ tramp
 .LSOverride
 Icon
 ._*
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
 
 # Windows
 Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db
 ehthumbs_vista.db
-*.tmp
-*.temp
-*.bak
-*.swp
-*.swo
-*~
 Desktop.ini
 $RECYCLE.BIN/
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-*.lnk
 
 # Linux
 *~
 .fuse_hidden*
 .directory
 .Trash-*
-.nfs*
 
 # ===========================================
-# SECURITY & SECRETS
+# IDE & EDITORS
 # ===========================================
 
-# API Keys and secrets
-*.key
-*.pem
-*.p12
-*.pfx
-secrets/
-keys/
-certificates/
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
 
-# JWT secrets
-jwt_secret.txt
-refresh_secret.txt
+# JetBrains IDEs
+.idea/
 
-# Database credentials
-db_credentials.txt
-mongodb_uri.txt
+# Vim
+*.swp
+*.swo
+*.un~
 
 # ===========================================
-# TEMPORARY & CACHE FILES
+# PREDICTION-SPECIFIC EXCLUSIONS
 # ===========================================
-
-# Temporary files
-tmp/
-temp/
-.tmp/
-.temp/
-
-# Cache directories
-.cache/
-cache/
-*.cache
-
-# Backup files
-*.backup
-*.bak
-*.old
-*.orig
-
-# ===========================================
-# PRODUCTION SPECIFIC
-# ===========================================
-
-# Production builds
-build/
-dist/
-out/
-
-# Production logs
-production.log
-error.log
-access.log
-
-# Production data
-production_data/
-prod_data/
-
-# SSL certificates (if not using Let's Encrypt)
-ssl/
-certificates/
-*.crt
-*.csr
-
-# ===========================================
-# TESTING & DEVELOPMENT
-# ===========================================
-
-# Test files
-test_results.json
-test_output/
-tests/__pycache__/
-tests/*.pyc
-
-# Development tools
-.dev/
-dev_scripts/
-setup_scripts/
-
-# Documentation builds
-docs/_build/
-site/
-
-# ===========================================
-# CUSTOM PROJECT FILES
-# ===========================================
-
-# RAG-SaaS specific
-rag_config.json
-legal_config.json
-conversation_data/
-user_data/
-uploaded_documents/
 
 # Generated documents
 generated_docs/
 static/generated_docs/
 
-# Admin data
+# User data
+conversation_data/
+user_data/
+uploaded_documents/
 admin_data/
 user_uploads/
 
-# Analytics data
+# Analytics
 analytics/
 metrics/
 stats/
 
+# Test files
+test_results.json
+test_output/
+tests/
+test_*.py
+*_test.py
+
+# Development tools
+tasks/
+setup_scripts/
+dev_scripts/
+*.dev.*
+
+# Training data
+training_data/
+train/
+train_*.py
+*_train.py
+
+# Model training files
+models/
+checkpoints/
+*.model
+*.pth
+*.pt
+*.h5
+*.pb
+
+# Data processing scripts
+process_*.py
+convert_*.py
+generate_*.py
+embed_*.py
+
+# Jupyter notebooks
+*.ipynb
+notebooks/
+
 # ===========================================
-# KEEP IMPORTANT FILES
+# KEEP PREDICTION-REQUIRED FILES
 # ===========================================
 
-# Keep important config files
+# Keep essential config files
 !legal_data/legal_config.json
 !config/loaders.yaml
 !config/tools.yaml
 !docker-compose.yml
-!README.md
-!API_ENDPOINTS.md
 
 # Keep example files
 !*.example
 !*.sample
 !*.template
 
-# Keep documentation
-!docs/
-!*.md
+# Keep core application files
+!backend/
+!frontend/
+!config/
+
+# ===========================================
+# EXCLUDE DOCUMENTATION & LEGAL FILES
+# ===========================================
+
+# Documentation files
+README.md
+README*.md
+*.md
+LICENSE
+LICENSE.*
+LICENSING.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+CHANGELOG.md
+HISTORY.md
+NOTICE
+NOTICE.*
+
+# Legal and compliance files
+LEGAL.md
+TERMS.md
+PRIVACY.md
+DISCLAIMER.md
+COPYRIGHT
+COPYRIGHT.*
+
+# Documentation directories
+docs/
+documentation/
+doc/
